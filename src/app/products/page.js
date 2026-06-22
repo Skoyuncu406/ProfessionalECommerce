@@ -190,11 +190,22 @@ export default function ProductsPage() {
       <section className="px-6 py-24 md:px-12">
         <div className="mx-auto max-w-7xl">
           {searchQuery && (
-            <div className="mb-10 border-b border-[#c8a45d]/15 pb-8">
+            <div className="mb-10 flex flex-col gap-5 border-b border-[#c8a45d]/15 pb-8 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-sm tracking-[0.2em] text-[#b8b0a1]">
                 {lang === "tr" ? "Arama sonucu:" : "Search result:"}{" "}
                 <span className="text-[#c8a45d]">{searchQuery}</span>
               </p>
+
+              <Link
+                href={
+                  activeCategory === "all"
+                    ? "/products"
+                    : `/products?category=${activeCategory}`
+                }
+                className="inline-flex w-fit border border-[#c8a45d]/40 px-5 py-3 text-[10px] uppercase tracking-[0.25em] text-[#c8a45d] transition-all duration-500 hover:bg-[#c8a45d] hover:text-black"
+              >
+                {lang === "tr" ? "Aramayı Temizle" : "Clear Search"}
+              </Link>
             </div>
           )}
 
@@ -204,12 +215,8 @@ export default function ProductsPage() {
                 key={category.id}
                 href={
                   category.id === "all"
-                    ? searchQuery
-                      ? `/products?search=${searchQuery}`
-                      : "/products"
-                    : searchQuery
-                      ? `/products?category=${category.id}&search=${searchQuery}`
-                      : `/products?category=${category.id}`
+                    ? "/products"
+                    : `/products?category=${category.id}`
                 }
                 className={`text-xs uppercase tracking-[0.3em] transition-all duration-500 ${
                   activeCategory === category.id
